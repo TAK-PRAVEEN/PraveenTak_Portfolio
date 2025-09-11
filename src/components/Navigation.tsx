@@ -19,29 +19,20 @@ const Navigation = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
   };
 
-  // Define animation variants outside your component
   const containerVariants = {
-    hidden: { 
-      x: "100%",   // slide in from the right
-      opacity: 0 
-    },
-    visible: { 
-      x: "0%", 
+    hidden: { x: "100%", opacity: 0 },
+    visible: {
+      x: "0%",
       opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 30, 
-        staggerChildren: 0.15 // 🔥 stagger child links
-      }
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+        staggerChildren: 0.15, // 🔥 stagger child links
+      },
     },
-    exit: { 
-      x: "100%", 
-      opacity: 0,
-      transition: { duration: 0.3 }
-    }
+    exit: { x: "100%", opacity: 0, transition: { duration: 0.3 } },
   };
-
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-background/70 backdrop-blur-md shadow-md">
@@ -94,33 +85,28 @@ const Navigation = () => {
 
             {/* Sidebar */}
             <motion.div
-                key="sidebar"
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                variants={containerVariants}
-                className="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-background/95 backdrop-blur-lg shadow-xl z-50"
-              >
-                {/* Sidebar content goes here */}
-              </motion.div>
-
-              <div className="flex flex-col items-center justify-center h-full space-y-6">
-                {navLinks.map((link) => (
-                  <motion.div key={link.path} variants={linkVariants}>
-                    <Link
-                      to={link.path}
-                      onClick={() => setIsOpen(false)}
-                      className={`text-xl transition-all duration-300 ${
-                        location.pathname === link.path
-                          ? "text-primary font-semibold"
-                          : "text-muted-foreground"
-                      } hover:text-primary hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]`}
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+              key="sidebar"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={containerVariants}
+              className="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-background/95 backdrop-blur-lg shadow-xl z-50 flex flex-col items-center justify-center space-y-6"
+            >
+              {navLinks.map((link) => (
+                <motion.div key={link.path} variants={linkVariants}>
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`text-xl transition-all duration-300 ${
+                      location.pathname === link.path
+                        ? "text-primary font-semibold"
+                        : "text-muted-foreground"
+                    } hover:text-primary hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
             </motion.div>
           </>
         )}
