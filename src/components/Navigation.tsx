@@ -70,8 +70,8 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Mobile menu toggle button */}
-          <div className="md:hidden flex items-center">
+          // {/* Mobile menu toggle button */}
+          <div className="md:hidden flex justify-center w-full">
             <button
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
