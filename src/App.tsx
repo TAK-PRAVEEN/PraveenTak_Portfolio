@@ -1,33 +1,23 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CustomCursor from "@/components/CustomCursor";
-import Index from "./pages/Index";
-import Experience from "./pages/Experience";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import { Routes, Route } from "react-router-dom";
+import Index from "./Pages/Index";       
+import About from "./Pages/Contact";
+import Projects from "./Pages/Experience";
+import NotFound from "./Pages/NotFound";
 
-const queryClient = new QueryClient();
+function App() {
+  return (
+    <Routes>
+      {/* ✅ Default home route */}
+      <Route path="/" element={<Index />} />
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <CustomCursor />
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/contact" element={<Contact />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+      {/* ✅ Other pages */}
+      <Route path="/about" element={<About />} />
+      <Route path="/projects" element={<Projects />} />
+
+      {/* ✅ Catch-all route */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 export default App;
