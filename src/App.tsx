@@ -1,20 +1,16 @@
 import { Routes, Route } from "react-router-dom";
-import Index from "./Pages/Index";       // ✅ remove ./src
-import About from "./Pages/About";
-import Projects from "./Pages/Projects";
-import NotFound from "./Pages/NotFound";
+
+import Index from "./pages/Index";
+import Contact from "./pages/Contact";
+import Experience from "./pages/Experience";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <Routes>
-      {/* ✅ Default home route */}
       <Route path="/" element={<Index />} />
-
-      {/* ✅ Other pages */}
-      <Route path="/about" element={<About />} />
-      <Route path="/projects" element={<Projects />} />
-
-      {/* ✅ Catch-all route */}
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/experience" element={<Experience />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

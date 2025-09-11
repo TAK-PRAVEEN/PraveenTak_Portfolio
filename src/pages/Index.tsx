@@ -64,7 +64,7 @@ const Index = () => {
                 <h1 className="relative text-4xl md:text-6xl font-bold b bg-clip-text flex justify-center items-center h-15 md:h-32">
                   <Link to="/">
                     <img
-                      src="/Name.gif"
+                      src={`${import.meta.env.BASE_URL}Name.gif`}
                       alt="Logo"
                       className="w-41 h-40 object-contain -mt-8"
                     />
@@ -116,7 +116,7 @@ const Index = () => {
             <InteractiveCard className="max-w-4xl mx-auto p-8" glowIntensity="high">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
                 <div className="flex flex-col items-center space-y-4">
-                  <img src="public\profilePicture.png" alt="Profile Picture" className="rounded-full w-40"/>
+                  <img src={`${import.meta.env.BASE_URL}profilePicture.png`} alt="Profile Picture" className="rounded-full w-40"/>
                   <div className="text-center">
                     <h3 className="text-xl font-bold text-foreground">Praveen Tak</h3>
                     <p className="text-primary">Data Science Enthusiast</p>

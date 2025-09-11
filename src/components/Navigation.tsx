@@ -11,7 +11,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8">
             <Link to="/" className="">
-              <img src="public/Name.gif" alt="" className="w-25 h-14"/>
+              <img src={`${import.meta.env.BASE_URL}Name.gif`} alt="Name Logo" className="w-25 h-14" />
             </Link>
             
             <div className="hidden md:flex items-center space-x-6">
