@@ -13,7 +13,6 @@ const Navigation = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  // Link animations
   const linkVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
@@ -28,7 +27,7 @@ const Navigation = () => {
         type: "spring",
         stiffness: 300,
         damping: 30,
-        staggerChildren: 0.15, // 🔥 stagger child links
+        staggerChildren: 0.15,
       },
     },
     exit: { x: "100%", opacity: 0, transition: { duration: 0.3 } },
@@ -37,13 +36,23 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-background/70 backdrop-blur-md shadow-md">
       <div className="container mx-auto flex justify-between items-center px-6 py-4">
-        {/* Logo */}
-        <Link to="/" className="font-bold text-lg text-primary">
-          Praveen Tak
+        {/* Logo + GIF */}
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src="/favicon.png"
+            alt="logo"
+            className="w-8 h-8 rounded-full"
+          />
+          <span className="font-bold text-lg text-primary">Praveen Tak</span>
+          <img
+            src="/my-cool.gif"
+            alt="animated gif"
+            className="w-10 h-10"
+          />
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex space-x-6 items-center">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -57,6 +66,16 @@ const Navigation = () => {
               {link.name}
             </Link>
           ))}
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4 ml-6">
+            <a href="https://github.com/TAK-PRAVEEN" target="_blank" rel="noopener noreferrer">
+              <img src="/github.svg" alt="GitHub" className="w-6 h-6 hover:opacity-80" />
+            </a>
+            <a href="https://www.linkedin.com/in/praveentak" target="_blank" rel="noopener noreferrer">
+              <img src="/linkedin.svg" alt="LinkedIn" className="w-6 h-6 hover:opacity-80" />
+            </a>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -107,6 +126,16 @@ const Navigation = () => {
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Social Icons inside sidebar too */}
+              <div className="flex gap-6 mt-8">
+                <a href="https://github.com/TAK-PRAVEEN" target="_blank" rel="noopener noreferrer">
+                  <img src="/github.svg" alt="GitHub" className="w-7 h-7 hover:opacity-80" />
+                </a>
+                <a href="https://www.linkedin.com/in/praveentak" target="_blank" rel="noopener noreferrer">
+                  <img src="/linkedin.svg" alt="LinkedIn" className="w-7 h-7 hover:opacity-80" />
+                </a>
+              </div>
             </motion.div>
           </>
         )}

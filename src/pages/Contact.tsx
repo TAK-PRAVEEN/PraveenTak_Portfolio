@@ -6,15 +6,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
-    message: "",
+    message: ""
   });
+  const { toast } = useToast();
 
   const [popup, setPopup] = useState<{
     type: "success" | "error" | null;
@@ -27,7 +30,7 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -35,11 +38,11 @@ const Contact = () => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
-      setPopup({
-        type: "error",
-        message: "⚠️ Please fill in all required fields.",
+      toast({
+        title: "Missing fields",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
       });
-      hidePopup();
       return;
     }
 
@@ -48,20 +51,20 @@ const Contact = () => {
       from_email: formData.email,
       subject: formData.subject || "Contact from Portfolio",
       message: formData.message,
-      time: new Date().toLocaleString(),
+      time: new Date().toLocaleString()
     };
 
     emailjs
       .send(
-        "service_wsp7l2r", // ✅ Service ID
-        "template_48bk4vp", // ✅ Template ID
+        "service_wsp7l2r",
+        "template_48bk4vp",
         templateParams,
-        "vzthvLJxNtIJ8teVr" // ✅ Public Key
+        "vzthvLJxNtIJ8teVr"
       )
       .then(() => {
         setPopup({
           type: "success",
-          message: "✅ Message sent! Thank you for reaching out.",
+          message: "✅ Message sent! Thank you for reaching out."
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
         hidePopup();
@@ -69,13 +72,12 @@ const Contact = () => {
       .catch(() => {
         setPopup({
           type: "error",
-          message: "❌ Failed to send message. Please try again later.",
+          message: "❌ Failed to send message. Please try again later."
         });
         hidePopup();
       });
   };
 
-  // Automatically hide popup after 3 seconds
   const hidePopup = () => {
     setTimeout(() => {
       setPopup({ type: null, message: "" });
@@ -85,17 +87,6 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5">
       <Navigation />
-
-      {/* ✅ Popup Message */}
-      {popup.type && (
-        <div
-          className={`fixed top-20 right-6 px-6 py-3 rounded-lg shadow-lg text-white z-50 transition-all duration-500 ${
-            popup.type === "success" ? "bg-green-600" : "bg-red-600"
-          }`}
-        >
-          {popup.message}
-        </div>
-      )}
 
       <main className="container mx-auto px-6 pt-24 pb-12">
         <div className="max-w-4xl mx-auto">
@@ -113,7 +104,108 @@ const Contact = () => {
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Info */}
-            {/* ... keep your contact info and social links as before ... */}
+            <div className="space-y-6">
+              <Card className="glass-card border-primary/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Mail className="w-5 h-5 text-primary" />
+                    Contact Information
+                  </CardTitle>
+                  <CardDescription>
+                    Feel free to reach out through any of these channels
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <a
+                    href="mailto:praveentak715@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block mb-4"
+                  >
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                      <Mail className="w-5 h-5 text-primary" />
+                      <div>
+                        <p className="font-medium">Email</p>
+                        <p className="text-sm text-muted-foreground">
+                          praveentak715@gmail.com
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a
+                    href="tel:+91 9462096002"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                      <Phone className="w-5 h-5 text-primary" />
+                      <div>
+                        <p className="font-medium">Phone</p>
+                        <p className="text-sm text-muted-foreground">
+                          +91 94620 96002
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+
+                  {/* Location with Map */}
+                  <div className="p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                    <div className="flex items-center gap-3 mb-3">
+                      <MapPin className="w-5 h-5 text-primary" />
+                      <div>
+                        <p className="font-medium">Location</p>
+                        <p className="text-sm text-muted-foreground">
+                          Jaipur, Rajasthan, India
+                        </p>
+                      </div>
+                    </div>
+                    <iframe
+                      title="Jaipur Map"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.927927927927!2d75.8120103150011!3d26.91243398314754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5b5a1a1a1a1%3A0x123456789abcdef!2sJaipur%2C%20Rajasthan%2C%20India!5e0!3m2!1sen!2sus!4v1687000000000!5m2!1sen!2sus"
+                      width="100%"
+                      height="200"
+                      style={{ border: 0, borderRadius: "0.5rem" }}
+                      allowFullScreen={false}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="glass-card border-primary/20">
+                <CardHeader>
+                  <CardTitle>Let's Connect</CardTitle>
+                  <CardDescription>
+                    Open to new opportunities and interesting projects
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    <a
+                      href="https://www.linkedin.com/in/praveentak"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button variant="outline" className="h-12 w-full">
+                        LinkedIn
+                      </Button>
+                    </a>
+                    <a
+                      href="https://github.com/TAK-PRAVEEN"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button variant="outline" className="h-12 w-full">
+                        GitHub
+                      </Button>
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
             {/* Contact Form */}
             <Card className="glass-card border-primary/20">
@@ -191,6 +283,23 @@ const Contact = () => {
           </div>
         </div>
       </main>
+
+      {/* Popup Notification */}
+      <AnimatePresence>
+        {popup.type && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.3 }}
+            className={`fixed bottom-6 right-6 px-6 py-4 rounded-lg shadow-lg text-white z-50 ${
+              popup.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          >
+            {popup.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
