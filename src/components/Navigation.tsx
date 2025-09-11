@@ -70,7 +70,7 @@ const Navigation = () => {
             </div>
           </div>
 
-          // {/* Mobile menu toggle button */}
+          {/* Mobile menu toggle button */}
           <div className="md:hidden flex justify-center w-full">
             <button
               onClick={toggleMobileMenu}
