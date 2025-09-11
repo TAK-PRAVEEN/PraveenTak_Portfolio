@@ -67,7 +67,6 @@ const CustomCursor = () => {
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
 
-    // Add hover listeners to interactive elements
     const interactiveElements = document.querySelectorAll(
       'button, a, input, textarea, [contenteditable], .cursor-pointer, .interactive-card, .hover-scale, .hover-lift, [role="button"]'
     );
@@ -99,8 +98,7 @@ const CustomCursor = () => {
       {/* Main cursor dot */}
       <div
         className={cn(
-          "custom-cursor-dot",
-          "fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999]",
+          "custom-cursor-dot fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999]",
           "transition-all duration-100 ease-out",
           cursor.isClicking && "scale-75",
           cursor.cursorType === 'button' && "bg-accent scale-125",
@@ -114,14 +112,13 @@ const CustomCursor = () => {
       {/* Cursor ring */}
       <div
         className={cn(
-          "custom-cursor-ring",
-          "fixed top-0 left-0 w-8 h-8 border border-primary/30 rounded-full pointer-events-none z-[9998]",
+          "custom-cursor-ring fixed top-0 left-0 w-8 h-8 border border-primary/30 rounded-full pointer-events-none z-[9998]",
           "transition-all duration-200 ease-out",
-          cursor.isHovering && "scale-150 border-primary/50",
-          cursor.isClicking && "scale-75",
-          cursor.cursorType === 'button' && "border-accent/50 scale-200",
-          cursor.cursorType === 'pointer' && "border-secondary/50 scale-175",
-          cursor.cursorType === 'text' && "border-secondary/40 scale-125"
+          cursor.isHovering && "scale-125 border-primary/50",
+          cursor.isClicking && "scale-90",
+          cursor.cursorType === "button" && "border-accent/50 scale-125",
+          cursor.cursorType === "pointer" && "border-secondary/50 scale-110",
+          cursor.cursorType === "text" && "border-secondary/40 scale-100"
         )}
         style={{
           transform: `translate(${cursor.x - 16}px, ${cursor.y - 16}px)`
