@@ -1,145 +1,187 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import {
+  User,
+  Briefcase,
+  MessageSquare,
+  Github,
+  Linkedin,
+  Mail,
+  Instagram,
+  Menu,
+  X,
+} from "lucide-react";
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Experience", path: "/experience" },
-    { name: "Contact", path: "/contact" },
-  ];
-
-  const linkVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
-  };
-
-  const containerVariants = {
-    hidden: { x: "100%", opacity: 0 },
-    visible: {
-      x: "0%",
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        staggerChildren: 0.15,
-      },
-    },
-    exit: { x: "100%", opacity: 0, transition: { duration: 0.3 } },
+  // Toggle mobile menu open/close
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background/70 backdrop-blur-md shadow-md">
-      <div className="container mx-auto flex justify-between items-center px-6 py-4">
-        {/* Logo + GIF */}
-        <Link to="/" className="flex items-center gap-3">
-          <img
-            src="/favicon.png"
-            alt="logo"
-            className="w-8 h-8 rounded-full"
-          />
-          <span className="font-bold text-lg text-primary">Praveen Tak</span>
-          <img
-            src="/my-cool.gif"
-            alt="animated gif"
-            className="w-10 h-10"
-          />
-        </Link>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex space-x-6 items-center">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`hover:text-primary transition-colors ${
-                location.pathname === link.path
-                  ? "text-primary font-semibold"
-                  : "text-muted-foreground"
-              }`}
-            >
-              {link.name}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-8">
+            <Link to="/" className="">
+              <img
+                src={`${import.meta.env.BASE_URL}Name.gif`}
+                alt="Name Logo"
+                className="w-25 h-14"
+              />
             </Link>
-          ))}
 
-          {/* Social Icons */}
-          <div className="flex items-center gap-4 ml-6">
-            <a href="https://github.com/TAK-PRAVEEN" target="_blank" rel="noopener noreferrer">
-              <img src="/github.svg" alt="GitHub" className="w-6 h-6 hover:opacity-80" />
+            {/* Desktop menu */}
+            <div className="hidden md:flex items-center space-x-6">
+              <Link to="/">
+                <Button
+                  variant={location.pathname === "/" ? "default" : "ghost"}
+                  size="sm"
+                  className="transition-smooth"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  About
+                </Button>
+              </Link>
+              <Link to="/experience">
+                <Button
+                  variant={location.pathname === "/experience" ? "default" : "ghost"}
+                  size="sm"
+                  className="transition-smooth"
+                >
+                  <Briefcase className="w-4 h-4 mr-2" />
+                  Experience
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button
+                  variant={location.pathname === "/contact" ? "default" : "ghost"}
+                  size="sm"
+                  className="transition-smooth"
+                >
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Contact
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile menu toggle button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
+              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6 text-primary" />
+              ) : (
+                <Menu className="w-6 h-6 text-primary" />
+              )}
+            </button>
+          </div>
+
+          <div className="hidden md:flex items-center space-x-4">
+            <a
+              href="https://www.instagram.com/tak.praveen04/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="ghost" size="sm" className="hover-scale">
+                <Instagram className="w-4 h-4" />
+              </Button>
             </a>
-            <a href="https://www.linkedin.com/in/praveentak" target="_blank" rel="noopener noreferrer">
-              <img src="/linkedin.svg" alt="LinkedIn" className="w-6 h-6 hover:opacity-80" />
+
+            <a
+              href="https://github.com/TAK-PRAVEEN"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="ghost" size="sm" className="hover-scale">
+                <Github className="w-4 h-4" />
+              </Button>
+            </a>
+
+            <a
+              href="https://linkedin.com/in/praveentak/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="ghost" size="sm" className="hover-scale">
+                <Linkedin className="w-4 h-4" />
+              </Button>
+            </a>
+
+            <a
+              href="mailto:praveentak715@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="ghost" size="sm" className="hover-scale">
+                <Mail className="w-4 h-4" />
+              </Button>
             </a>
           </div>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
       </div>
 
-      {/* Mobile Sidebar with Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Overlay */}
-            <motion.div
-              key="overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Sidebar */}
-            <motion.div
-              key="sidebar"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={containerVariants}
-              className="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-background/95 backdrop-blur-lg shadow-xl z-50 flex flex-col items-center justify-center space-y-6"
+      {/* Mobile menu panel */}
+      <div
+        className={`md:hidden fixed top-16 left-0 right-0 bg-background/90 backdrop-blur-lg border-t border-border z-40 transform transition-transform duration-300 ease-in-out ${
+          mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="flex flex-col items-center space-y-4 py-6">
+          <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+            <Button
+              variant={location.pathname === "/" ? "default" : "ghost"}
+              size="lg"
+              className="text-glow"
             >
-              {navLinks.map((link) => (
-                <motion.div key={link.path} variants={linkVariants}>
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`text-xl transition-all duration-300 ${
-                      location.pathname === link.path
-                        ? "text-primary font-semibold"
-                        : "text-muted-foreground"
-                    } hover:text-primary hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]`}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+              <User className="w-5 h-5 mr-2" />
+              Home
+            </Button>
+          </Link>
+          <Link to="/experience" onClick={() => setMobileMenuOpen(false)}>
+            <Button
+              variant={location.pathname === "/experience" ? "default" : "ghost"}
+              size="lg"
+              className="text-glow"
+            >
+              <Briefcase className="w-5 h-5 mr-2" />
+              Experience
+            </Button>
+          </Link>
+          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+            <Button
+              variant={location.pathname === "/contact" ? "default" : "ghost"}
+              size="lg"
+              className="text-glow"
+            >
+              <MessageSquare className="w-5 h-5 mr-2" />
+              Contact
+            </Button>
+          </Link>
+        </div>
+      </div>
 
-              {/* Social Icons inside sidebar too */}
-              <div className="flex gap-6 mt-8">
-                <a href="https://github.com/TAK-PRAVEEN" target="_blank" rel="noopener noreferrer">
-                  <img src="/github.svg" alt="GitHub" className="w-7 h-7 hover:opacity-80" />
-                </a>
-                <a href="https://www.linkedin.com/in/praveentak" target="_blank" rel="noopener noreferrer">
-                  <img src="/linkedin.svg" alt="LinkedIn" className="w-7 h-7 hover:opacity-80" />
-                </a>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <style>
+        {`
+          /* Glow text effect */
+          .text-glow {
+            color: #0ea5e9; /* Tailwind sky-500 */
+            text-shadow:
+              0 0 5px #0ea5e9,
+              0 0 10px #0ea5e9,
+              0 0 20px #0ea5e9,
+              0 0 40px #0ea5e9;
+          }
+        `}
+      </style>
     </nav>
   );
 };
