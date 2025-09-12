@@ -36,6 +36,7 @@ const Navigation = () => {
     },
   };
 
+
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
@@ -189,8 +190,8 @@ const Navigation = () => {
               initial="hidden"
               animate="visible"
               exit="exit"
+              className={`fixed top-0 left-0 h-full w-64 ${sidebarOpen ? "bg-black" : ""} backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between`} // bg-black full opacity
               variants={sidebarVariants}
-              className="fixed top-0 left-0 h-full w-64 bg-black backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between" // bg-black full opacity
             >
               {/* Links */}
               <div className="flex flex-col space-y-6 mt-10">
