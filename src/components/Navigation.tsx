@@ -10,23 +10,48 @@ import {
   Mail,
   Instagram,
   Menu,
-  X,
+  Minus,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navigation = () => {
   const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Toggle mobile menu open/close
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen((prev) => !prev);
+  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
+
+  // Sidebar animation
+  const sidebarVariants = {
+    hidden: { x: "-100%" },
+    visible: {
+      x: 0,
+      transition: { type: "spring", stiffness: 200, damping: 25 },
+    },
+    exit: {
+      x: "-100%",
+      transition: { duration: 0.3 },
+    },
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-8">
+          {/* Left side: Hamburger */}
+          <div className="flex items-center space-x-4 md:space-x-8">
+            <button
+              onClick={toggleSidebar}
+              aria-label="Toggle sidebar"
+              className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              {sidebarOpen ? (
+                <Minus className="w-6 h-6 text-primary" />
+              ) : (
+                <Menu className="w-6 h-6 text-primary" />
+              )}
+            </button>
+
+            {/* Logo */}
             <Link to="/" className="">
               <img
                 src={`${import.meta.env.BASE_URL}Name.gif`}
@@ -49,7 +74,9 @@ const Navigation = () => {
               </Link>
               <Link to="/experience">
                 <Button
-                  variant={location.pathname === "/experience" ? "default" : "ghost"}
+                  variant={
+                    location.pathname === "/experience" ? "default" : "ghost"
+                  }
                   size="sm"
                   className="transition-smooth"
                 >
@@ -70,21 +97,7 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Mobile menu toggle button */}
-          <div className="md:hidden flex justify-center w-full">
-            <button
-              onClick={toggleMobileMenu}
-              aria-label="Toggle menu"
-              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-primary" />
-              ) : (
-                <Menu className="w-6 h-6 text-primary" />
-              )}
-            </button>
-          </div>
-
+          {/* Right side: Social Icons */}
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="https://www.instagram.com/tak.praveen04/"
@@ -95,7 +108,6 @@ const Navigation = () => {
                 <Instagram className="w-4 h-4" />
               </Button>
             </a>
-
             <a
               href="https://github.com/TAK-PRAVEEN"
               target="_blank"
@@ -105,7 +117,6 @@ const Navigation = () => {
                 <Github className="w-4 h-4" />
               </Button>
             </a>
-
             <a
               href="https://linkedin.com/in/praveentak/"
               target="_blank"
@@ -115,7 +126,6 @@ const Navigation = () => {
                 <Linkedin className="w-4 h-4" />
               </Button>
             </a>
-
             <a
               href="mailto:praveentak715@gmail.com"
               target="_blank"
@@ -129,59 +139,68 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile menu panel */}
-      <div
-        className={`md:hidden fixed top-16 left-0 right-0 bg-background/90 backdrop-blur-lg border-t border-border z-40 transform transition-transform duration-300 ease-in-out ${
-          mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-        <div className="flex flex-col items-center space-y-4 py-6">
-          <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-            <Button
-              variant={location.pathname === "/" ? "default" : "ghost"}
-              size="lg"
-              className="text-glow"
-            >
-              <User className="w-5 h-5 mr-2" />
-              Home
-            </Button>
-          </Link>
-          <Link to="/experience" onClick={() => setMobileMenuOpen(false)}>
-            <Button
-              variant={location.pathname === "/experience" ? "default" : "ghost"}
-              size="lg"
-              className="text-glow"
-            >
-              <Briefcase className="w-5 h-5 mr-2" />
-              Experience
-            </Button>
-          </Link>
-          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
-            <Button
-              variant={location.pathname === "/contact" ? "default" : "ghost"}
-              size="lg"
-              className="text-glow"
-            >
-              <MessageSquare className="w-5 h-5 mr-2" />
-              Contact
-            </Button>
-          </Link>
-        </div>
-      </div>
+      {/* Sidebar with Overlay */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              onClick={toggleSidebar}
+            />
 
-      <style>
-        {`
-          /* Glow text effect */
-          .text-glow {
-            color: #0ea5e9; /* Tailwind sky-500 */
-            text-shadow:
-              0 0 5px #0ea5e9,
-              0 0 10px #0ea5e9,
-              0 0 20px #0ea5e9,
-              0 0 40px #0ea5e9;
-          }
-        `}
-      </style>
+            {/* Sidebar */}
+            <motion.div
+              key="sidebar"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={sidebarVariants}
+              className="fixed top-0 left-0 h-full w-64 bg-background/95 backdrop-blur-lg shadow-lg z-50 p-6"
+            >
+              <div className="flex flex-col space-y-6 mt-10">
+                <Link to="/" onClick={toggleSidebar}>
+                  <Button
+                    variant={location.pathname === "/" ? "default" : "ghost"}
+                    size="lg"
+                    className="w-full"
+                  >
+                    <User className="w-5 h-5 mr-2" />
+                    Home
+                  </Button>
+                </Link>
+                <Link to="/experience" onClick={toggleSidebar}>
+                  <Button
+                    variant={
+                      location.pathname === "/experience" ? "default" : "ghost"
+                    }
+                    size="lg"
+                    className="w-full"
+                  >
+                    <Briefcase className="w-5 h-5 mr-2" />
+                    Experience
+                  </Button>
+                </Link>
+                <Link to="/contact" onClick={toggleSidebar}>
+                  <Button
+                    variant={location.pathname === "/contact" ? "default" : "ghost"}
+                    size="lg"
+                    className="w-full"
+                  >
+                    <MessageSquare className="w-5 h-5 mr-2" />
+                    Contact
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
