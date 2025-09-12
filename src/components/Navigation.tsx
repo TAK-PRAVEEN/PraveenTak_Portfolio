@@ -55,7 +55,7 @@ const Navigation = () => {
               {/* Top line */}
               <motion.span
                 animate={{
-                  y: sidebarOpen ? 0 : -6,   // move to center when open
+                  y: sidebarOpen ? 0 : -6,
                 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
                 transition={{ duration: 0.3 }}
@@ -63,7 +63,7 @@ const Navigation = () => {
               {/* Middle line */}
               <motion.span
                 animate={{
-                  opacity: 1,
+                  opacity: sidebarOpen ? 0 : 1, // hide when open
                 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
                 transition={{ duration: 0.3 }}
@@ -71,13 +71,12 @@ const Navigation = () => {
               {/* Bottom line */}
               <motion.span
                 animate={{
-                  y: sidebarOpen ? 0 : 6,   // move to center when open
+                  y: sidebarOpen ? 0 : 6,
                 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
                 transition={{ duration: 0.3 }}
               />
             </button>
-
 
             {/* Logo */}
             <Link to="/" className="">
