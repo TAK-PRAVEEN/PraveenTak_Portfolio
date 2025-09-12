@@ -9,7 +9,6 @@ import {
   Linkedin,
   Mail,
   Instagram,
-  Menu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -28,7 +27,7 @@ const Navigation = () => {
         type: "spring", 
         stiffness: 200, 
         damping: 25,
-        staggerChildren: 0.15, // 🔥 stagger for links & icons
+        staggerChildren: 0.15,
       },
     },
     exit: {
@@ -37,7 +36,6 @@ const Navigation = () => {
     },
   };
 
-  // Item animation (links & icons)
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
@@ -47,18 +45,37 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Left side: Hamburger */}
+          {/* Left side: Animated Hamburger */}
           <div className="flex items-center space-x-4 md:space-x-8">
             <button
               onClick={toggleSidebar}
               aria-label="Toggle sidebar"
-              className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              className="relative md:hidden w-8 h-8 flex flex-col justify-center items-center"
             >
-              {sidebarOpen ? (
-                <span className="block w-6 h-0.5 bg-primary"></span> // 🔥 Single line when open
-              ) : (
-                <Menu className="w-6 h-6 text-primary" />
-              )}
+              <motion.span
+                animate={{
+                  y: sidebarOpen ? 8 : 0,
+                  rotate: sidebarOpen ? 0 : 0,
+                }}
+                className="absolute w-6 h-0.5 bg-primary rounded"
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                animate={{
+                  scaleX: sidebarOpen ? 1 : 1,
+                  opacity: sidebarOpen ? 1 : 1,
+                  y: sidebarOpen ? 0 : 8,
+                }}
+                className="absolute w-6 h-0.5 bg-primary rounded"
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                animate={{
+                  opacity: sidebarOpen ? 0 : 1,
+                }}
+                className="absolute w-6 h-0.5 bg-primary rounded"
+                transition={{ duration: 0.3 }}
+              />
             </button>
 
             {/* Logo */}
@@ -109,38 +126,22 @@ const Navigation = () => {
 
           {/* Right side: Social Icons (desktop only) */}
           <div className="hidden md:flex items-center space-x-4">
-            <a
-              href="https://www.instagram.com/tak.praveen04/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://www.instagram.com/tak.praveen04/" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Instagram className="w-4 h-4" />
               </Button>
             </a>
-            <a
-              href="https://github.com/TAK-PRAVEEN"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://github.com/TAK-PRAVEEN" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Github className="w-4 h-4" />
               </Button>
             </a>
-            <a
-              href="https://linkedin.com/in/praveentak/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://linkedin.com/in/praveentak/" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Linkedin className="w-4 h-4" />
               </Button>
             </a>
-            <a
-              href="mailto:praveentak715@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="mailto:praveentak715@gmail.com" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Mail className="w-4 h-4" />
               </Button>
@@ -171,7 +172,7 @@ const Navigation = () => {
               animate="visible"
               exit="exit"
               variants={sidebarVariants}
-              className="fixed top-0 left-0 h-full w-64 bg-background/95 backdrop-blur-lg shadow-lg z-50 p-6 flex flex-col justify-between"
+              className="fixed top-0 left-0 h-full w-64 bg-black/80 backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between"
             >
               {/* Links */}
               <div className="flex flex-col space-y-6 mt-10">
@@ -222,10 +223,7 @@ const Navigation = () => {
               {/* Social Icons */}
               <div className="flex justify-around mt-10">
                 {[
-                  {
-                    href: "https://www.instagram.com/tak.praveen04/",
-                    icon: Instagram,
-                  },
+                  { href: "https://www.instagram.com/tak.praveen04/", icon: Instagram },
                   { href: "https://github.com/TAK-PRAVEEN", icon: Github },
                   { href: "https://linkedin.com/in/praveentak/", icon: Linkedin },
                   { href: "mailto:praveentak715@gmail.com", icon: Mail },
