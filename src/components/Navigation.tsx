@@ -52,31 +52,32 @@ const Navigation = () => {
               aria-label="Toggle sidebar"
               className="relative md:hidden w-8 h-8 flex flex-col justify-center items-center"
             >
+              {/* Top line */}
               <motion.span
                 animate={{
-                  y: sidebarOpen ? 8 : 0,
-                  rotate: sidebarOpen ? 0 : 0,
+                  y: sidebarOpen ? 0 : -6,   // move to center when open
                 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
                 transition={{ duration: 0.3 }}
               />
+              {/* Middle line */}
               <motion.span
                 animate={{
-                  scaleX: sidebarOpen ? 1 : 1,
-                  opacity: sidebarOpen ? 1 : 1,
-                  y: sidebarOpen ? 0 : 8,
+                  opacity: 1,
                 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
                 transition={{ duration: 0.3 }}
               />
+              {/* Bottom line */}
               <motion.span
                 animate={{
-                  opacity: sidebarOpen ? 0 : 1,
+                  y: sidebarOpen ? 0 : 6,   // move to center when open
                 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
                 transition={{ duration: 0.3 }}
               />
             </button>
+
 
             {/* Logo */}
             <Link to="/" className="">
