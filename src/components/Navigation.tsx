@@ -10,7 +10,6 @@ import {
   Mail,
   Instagram,
   Menu,
-  Minus,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -25,12 +24,23 @@ const Navigation = () => {
     hidden: { x: "-100%" },
     visible: {
       x: 0,
-      transition: { type: "spring", stiffness: 200, damping: 25 },
+      transition: { 
+        type: "spring", 
+        stiffness: 200, 
+        damping: 25,
+        staggerChildren: 0.15, // 🔥 stagger for links & icons
+      },
     },
     exit: {
       x: "-100%",
       transition: { duration: 0.3 },
     },
+  };
+
+  // Item animation (links & icons)
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
   };
 
   return (
@@ -45,7 +55,7 @@ const Navigation = () => {
               className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
             >
               {sidebarOpen ? (
-                <Minus className="w-6 h-6 text-primary" />
+                <span className="block w-6 h-0.5 bg-primary"></span> // 🔥 Single line when open
               ) : (
                 <Menu className="w-6 h-6 text-primary" />
               )}
@@ -97,7 +107,7 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Right side: Social Icons */}
+          {/* Right side: Social Icons (desktop only) */}
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="https://www.instagram.com/tak.praveen04/"
@@ -143,14 +153,14 @@ const Navigation = () => {
       <AnimatePresence>
         {sidebarOpen && (
           <>
-            {/* Overlay */}
+            {/* Black overlay with blur */}
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 0.6 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
               onClick={toggleSidebar}
             />
 
@@ -161,41 +171,75 @@ const Navigation = () => {
               animate="visible"
               exit="exit"
               variants={sidebarVariants}
-              className="fixed top-0 left-0 h-full w-64 bg-background/95 backdrop-blur-lg shadow-lg z-50 p-6"
+              className="fixed top-0 left-0 h-full w-64 bg-background/95 backdrop-blur-lg shadow-lg z-50 p-6 flex flex-col justify-between"
             >
+              {/* Links */}
               <div className="flex flex-col space-y-6 mt-10">
-                <Link to="/" onClick={toggleSidebar}>
-                  <Button
-                    variant={location.pathname === "/" ? "default" : "ghost"}
-                    size="lg"
-                    className="w-full"
+                <motion.div variants={itemVariants}>
+                  <Link to="/" onClick={toggleSidebar}>
+                    <Button
+                      variant={location.pathname === "/" ? "default" : "ghost"}
+                      size="lg"
+                      className="w-full"
+                    >
+                      <User className="w-5 h-5 mr-2" />
+                      Home
+                    </Button>
+                  </Link>
+                </motion.div>
+                <motion.div variants={itemVariants}>
+                  <Link to="/experience" onClick={toggleSidebar}>
+                    <Button
+                      variant={
+                        location.pathname === "/experience"
+                          ? "default"
+                          : "ghost"
+                      }
+                      size="lg"
+                      className="w-full"
+                    >
+                      <Briefcase className="w-5 h-5 mr-2" />
+                      Experience
+                    </Button>
+                  </Link>
+                </motion.div>
+                <motion.div variants={itemVariants}>
+                  <Link to="/contact" onClick={toggleSidebar}>
+                    <Button
+                      variant={
+                        location.pathname === "/contact" ? "default" : "ghost"
+                      }
+                      size="lg"
+                      className="w-full"
+                    >
+                      <MessageSquare className="w-5 h-5 mr-2" />
+                      Contact
+                    </Button>
+                  </Link>
+                </motion.div>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex justify-around mt-10">
+                {[
+                  {
+                    href: "https://www.instagram.com/tak.praveen04/",
+                    icon: Instagram,
+                  },
+                  { href: "https://github.com/TAK-PRAVEEN", icon: Github },
+                  { href: "https://linkedin.com/in/praveentak/", icon: Linkedin },
+                  { href: "mailto:praveentak715@gmail.com", icon: Mail },
+                ].map(({ href, icon: Icon }, i) => (
+                  <motion.a
+                    key={i}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variants={itemVariants}
                   >
-                    <User className="w-5 h-5 mr-2" />
-                    Home
-                  </Button>
-                </Link>
-                <Link to="/experience" onClick={toggleSidebar}>
-                  <Button
-                    variant={
-                      location.pathname === "/experience" ? "default" : "ghost"
-                    }
-                    size="lg"
-                    className="w-full"
-                  >
-                    <Briefcase className="w-5 h-5 mr-2" />
-                    Experience
-                  </Button>
-                </Link>
-                <Link to="/contact" onClick={toggleSidebar}>
-                  <Button
-                    variant={location.pathname === "/contact" ? "default" : "ghost"}
-                    size="lg"
-                    className="w-full"
-                  >
-                    <MessageSquare className="w-5 h-5 mr-2" />
-                    Contact
-                  </Button>
-                </Link>
+                    <Icon className="w-6 h-6 text-primary hover:scale-110 transition-transform" />
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
           </>
