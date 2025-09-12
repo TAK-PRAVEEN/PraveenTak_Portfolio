@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   User,
@@ -10,11 +11,6 @@ import {
   Instagram,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Mock components and hooks for standalone functionality
-const useLocation = () => ({ pathname: "/" });
-const Link = ({ to, children, ...props }) => <a href={to} {...props}>{children}</a>;
-
 
 const Navigation = () => {
   const location = useLocation();
@@ -31,7 +27,7 @@ const Navigation = () => {
         type: "spring",
         stiffness: 200,
         damping: 25,
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
       },
     },
     exit: {
@@ -51,44 +47,43 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Left side: Animated Hamburger */}
           <div className="flex items-center space-x-4 md:space-x-8">
-            {/* --- MODIFIED HAMBURGER BUTTON --- */}
             <button
               onClick={toggleSidebar}
               aria-label="Toggle sidebar"
-              className="relative md:hidden w-8 h-8 flex flex-col justify-center items-center z-[51]" // Increased z-index
+              className="relative md:hidden w-8 h-8 flex flex-col justify-center items-center"
             >
-              {/* Top line animates to top of 'X' */}
+              {/* Top line */}
               <motion.span
-                animate={{
-                  y: sidebarOpen ? 0 : -6,
-                  rotate: sidebarOpen ? 45 : 0,
-                }}
+                animate={
+                  sidebarOpen
+                    ? { rotate: 45, y: 0 }
+                    : { rotate: 0, y: -6 }
+                }
                 className="absolute w-6 h-0.5 bg-primary rounded"
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                transition={{ duration: 0.3 }}
               />
-              {/* Middle line fades out */}
+              {/* Middle line */}
               <motion.span
-                animate={{
-                  opacity: sidebarOpen ? 0 : 1,
-                }}
+                animate={{ opacity: sidebarOpen ? 0 : 1 }}
                 className="absolute w-6 h-0.5 bg-primary rounded"
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3 }}
               />
-              {/* Bottom line animates to bottom of 'X' */}
+              {/* Bottom line */}
               <motion.span
-                animate={{
-                  y: sidebarOpen ? 0 : 6,
-                  rotate: sidebarOpen ? -45 : 0,
-                }}
+                animate={
+                  sidebarOpen
+                    ? { rotate: -45, y: 0 }
+                    : { rotate: 0, y: 6 }
+                }
                 className="absolute w-6 h-0.5 bg-primary rounded"
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                transition={{ duration: 0.3 }}
               />
             </button>
 
             {/* Logo */}
             <Link to="/" className="">
               <img
-                src={`https://placehold.co/100x56/000000/FFFFFF?text=Logo.gif`}
+                src={`${import.meta.env.BASE_URL}Name.gif`}
                 alt="Name Logo"
                 className="w-25 h-14"
               />
@@ -133,22 +128,38 @@ const Navigation = () => {
 
           {/* Right side: Social Icons (desktop only) */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="https://www.instagram.com/tak.praveen04/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.instagram.com/tak.praveen04/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Instagram className="w-4 h-4" />
               </Button>
             </a>
-            <a href="https://github.com/TAK-PRAVEEN" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/TAK-PRAVEEN"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Github className="w-4 h-4" />
               </Button>
             </a>
-            <a href="https://linkedin.com/in/praveentak/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://linkedin.com/in/praveentak/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Linkedin className="w-4 h-4" />
               </Button>
             </a>
-            <a href="mailto:praveentak715@gmail.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="mailto:praveentak715@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="ghost" size="sm" className="hover-scale">
                 <Mail className="w-4 h-4" />
               </Button>
@@ -165,7 +176,7 @@ const Navigation = () => {
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={{ opacity: 0.6 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
@@ -188,9 +199,9 @@ const Navigation = () => {
                     <Button
                       variant={location.pathname === "/" ? "default" : "ghost"}
                       size="lg"
-                      className="w-full justify-start"
+                      className="w-full"
                     >
-                      <User className="w-5 h-5 mr-3" />
+                      <User className="w-5 h-5 mr-2" />
                       Home
                     </Button>
                   </Link>
@@ -204,9 +215,9 @@ const Navigation = () => {
                           : "ghost"
                       }
                       size="lg"
-                      className="w-full justify-start"
+                      className="w-full"
                     >
-                      <Briefcase className="w-5 h-5 mr-3" />
+                      <Briefcase className="w-5 h-5 mr-2" />
                       Experience
                     </Button>
                   </Link>
@@ -218,9 +229,9 @@ const Navigation = () => {
                         location.pathname === "/contact" ? "default" : "ghost"
                       }
                       size="lg"
-                      className="w-full justify-start"
+                      className="w-full"
                     >
-                      <MessageSquare className="w-5 h-5 mr-3" />
+                      <MessageSquare className="w-5 h-5 mr-2" />
                       Contact
                     </Button>
                   </Link>
