@@ -50,7 +50,7 @@ const Navigation = () => {
             <button
               onClick={toggleSidebar}
               aria-label="Toggle sidebar"
-              className="relative md:hidden w-8 h-8 flex flex-col justify-center items-center"
+              className="relative md:hidden w-8 h-8 flex flex-col justify-center items-center z-[60]" // z-60 to be above sidebar (z-50)
             >
               {/* Top line */}
               <motion.span
@@ -190,7 +190,7 @@ const Navigation = () => {
               animate="visible"
               exit="exit"
               variants={sidebarVariants}
-              className="fixed top-0 left-0 h-full w-64 bg-black/80 backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between"
+              className="fixed top-0 left-0 h-full w-64 bg-black backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between" // bg-black full opacity
             >
               {/* Links */}
               <div className="flex flex-col space-y-6 mt-10">
