@@ -56,24 +56,26 @@ const Navigation = () => {
               <motion.span
                 animate={{
                   y: sidebarOpen ? 0 : -6,
+                  rotate: 0,
                 }}
-                className="absolute w-6 h-0.5 bg-primary rounded"
+                className="w-6 h-0.5 bg-primary rounded block"
                 transition={{ duration: 0.3 }}
               />
               {/* Middle line */}
               <motion.span
                 animate={{
-                  opacity: sidebarOpen ? 0 : 1, // hide when open
+                  opacity: sidebarOpen ? 0 : 1,
                 }}
-                className="absolute w-6 h-0.5 bg-primary rounded"
+                className="w-6 h-0.5 bg-primary rounded block my-1"
                 transition={{ duration: 0.3 }}
               />
               {/* Bottom line */}
               <motion.span
                 animate={{
                   y: sidebarOpen ? 0 : 6,
+                  rotate: 0,
                 }}
-                className="absolute w-6 h-0.5 bg-primary rounded"
+                className="w-6 h-0.5 bg-primary rounded block"
                 transition={{ duration: 0.3 }}
               />
             </button>
