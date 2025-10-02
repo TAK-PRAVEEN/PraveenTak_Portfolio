@@ -16,14 +16,27 @@ import {
 const Experience = () => {
   const workExperience = [
     {
+      title: "AI Intern",
+      company: "Elevate Labs",
+      period: "Aug 2025 - Sep 2025",
+      location: "Remote",
+      description: [
+        "Contributed to the project “Sign Language Recognition”, achieving ~85% accuracy in translating gestures to text.",
+        "Built and optimized deep learning models (CNNs, RNNs) using Python, TensorFlow, and PyTorch, reducing training time by 20%.",
+        "Applied data preprocessing and augmentation on a dataset of 10,000+ gesture images, improving model generalization."
+      ],
+      technologies: ["Machine Learning", "Computer Vision", "Deep Learning"],
+      type: "work" as const
+    },
+    {
       title: "Project Trainee",
       company: "Defence Research and Development Organisation (DRDO)",
       period: "Feb 2025 - Apr 2025",
       location: "Jodhpur, India",
       description: [
-        "Worked on Machine Learning and Computer Vision projects for defense applications",
-        "Implemented deep learning algorithms for image analysis and pattern recognition",
-        "Collaborated with research teams on cutting-edge defense technology solutions"
+        "Developed “Painting Generation using CycleGANs”, generating 1,000+ high-quality synthetic artworks from real images.",
+        "Trained GAN models with TensorFlow/PyTorch, improving image fidelity scores by 15%.",
+        "Performed data preprocessing and augmentation on a dataset of 5,000+ images, enhancing stability in model convergence."
       ],
       technologies: ["Machine Learning", "Computer Vision", "Deep Learning"],
       type: "work" as const
@@ -34,9 +47,9 @@ const Experience = () => {
       period: "Jan 2025 - Feb 2025",
       location: "Remote",
       description: [
-        "Developed machine learning solutions for palatable food data analysis",
-        "Created predictive models for food industry analysis",
-        "Implemented data preprocessing and feature engineering pipelines"
+        "Completed 3+ machine learning projects applying regression, classification, and clustering on datasets of up to 50,000+ records.",
+        "Designed and evaluated ML models using Scikit-learn, TensorFlow, and PyTorch, achieving performance improvements of 10–25% over baseline.",
+        "Executed data cleaning and validation pipelines reducing preprocessing errors by 30%."
       ],
       technologies: ["Machine Learning", "Python", "Data Analysis"],
       type: "work" as const

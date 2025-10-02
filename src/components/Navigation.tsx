@@ -183,14 +183,13 @@ const Navigation = () => {
               className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
               onClick={toggleSidebar}
             />
-
             {/* Sidebar */}
             <motion.div
               key="sidebar"
               initial="hidden"
               animate="visible"
               exit="exit"
-              className={`fixed top-0 left-0 h-full w-64 ${sidebarOpen ? "bg-black" : ""} backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between`} // bg-black full opacity
+              className="fixed top-0 left-0 h-full w-64 bg-[rgba(0,0,0,0.6)] backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between"
               variants={sidebarVariants}
             >
               {/* Links */}
@@ -238,6 +237,8 @@ const Navigation = () => {
                   </Link>
                 </motion.div>
               </div>
+
+              
 
               {/* Social Icons */}
               <div className="flex justify-around mt-10">
