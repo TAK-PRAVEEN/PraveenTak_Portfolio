@@ -1,5 +1,3 @@
----
-
 ### 🔄 Steps with npm
 
 1. **Install dependencies (if not already done)**
@@ -33,5 +31,3 @@
    (This command is usually defined in your `package.json` as something like `"deploy": "gh-pages -d dist"`.)
 
    Otherwise, just **commit + push** the changes (`git push origin main`), and GitHub Pages will auto-build and update your live site.
-
----
