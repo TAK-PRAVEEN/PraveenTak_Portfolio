@@ -93,6 +93,19 @@ const Experience = () => {
 
   const projects = [
     {
+      title: "GoldLens AI",
+      description: "AI-powered platform for real-time gold price prediction, multi-currency analytics, and daily motivational quotes.",
+      technologies: ["Python", "FastAPI", "TensorFlow", "Machine Learning", "Google OAuth", "MySQL", "Jinja2", "Docker", "Chart.js", "Gemini AI"],
+      features: [
+        "Built an end-to-end ML system for gold price forecasting using advanced LSTM, GRU, and BiLSTM models (RMSE ~13.9) on 4,000+ records.",
+        "Showcases real-time live gold prices in USD, EUR, GBP, and INR (18K/22K/24K), integrated via public APIs.",
+        "Delivers daily motivational quotes using Google Gemini AI, with Google OAuth login and user management in MySQL.",
+        "Interactive web dashboard with responsive charts and secure prediction API endpoints.",
+        "Deployed on Hugging Face Spaces using Docker; supports concurrent users and <500ms inference."
+      ],
+      links: { demo: "https://huggingface.co/spaces/PraveenTak/GoldLens-AI", github: "https://github.com/TAK-PRAVEEN/GoldLens-AI" }
+    },
+    {
       title: "ResumeParser.ai",
       description: "Natural Language Processing (NLP) application for resume optimization and analysis",
       technologies: ["Python", "NLP", "Machine Learning", "OAuth", "MongoDB"],
