@@ -2,6 +2,8 @@ import Navigation from "@/components/Navigation";
 import SkillCard from "@/components/SkillCard";
 import InteractiveCard from "@/components/InteractiveCard";
 import ProfileUpload from "@/components/ProfileUpload";
+import SectionHeader from "@/components/SectionHeader";
+import HeroSection from "@/components/HeroSection";
 import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,70 +48,19 @@ const Index = () => {
   const staggeredAchievements = useStaggeredAnimation(achievements.length, 100);
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center space-y-6 animate-fade-in">
-            <div className="space-y-4">
-              <div
-                className="lex justify-center items-center w-full h-24"
-                style={{
-                  background: '#000000', // fallback
-                  backgroundImage: 'linear-gradient( 288deg,  rgba(0,85,255,1) 1.5%, rgba(4,56,115,1) 91.6% )',
-                }}
-              >
-                <h1 className="relative text-4xl md:text-6xl font-bold b bg-clip-text flex justify-center items-center h-15 md:h-32">
-                  <Link to="/">
-                    <img
-                      src={`${import.meta.env.BASE_URL}Name.gif`}
-                      alt="Logo"
-                      className="w-41 h-40 object-contain -mt-8"
-                    />
-                  </Link>
-                </h1>
-              </div>
-              <p className="text-xl md:text-2xl text-muted-foreground">
-                Computer Science Graduate
-              </p>
-              <div className="flex items-center justify-center space-x-2 text-muted-foreground">
-                <MapPin className="w-4 h-4" />
-                <span><a href="https://maps.app.goo.gl/3QHT7VpC7mwo9y947" target="_blank">Jaipur, Rajasthan, India, 302017</a></span>
-              </div>
-            </div>
-
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Passionate Computer Science undergraduate specializing in Data Science and Machine Learning, 
-              with hands-on experience in delivering high-quality work in hackathons and academic projects.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Link to="/experience">
-                <Button size="lg" className="hover-scale shadow-glow">
-                  View Experience
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Button variant="outline" size="lg" className="hover-scale">
-                <Download className="w-4 h-4 mr-2" />
-                <a href="https://drive.google.com/file/d/1LN2AQ5XoojyQJdSyUy1KHfSSpbkF43Lk/view?usp=sharing" target="_blank">Download Resume</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section — full-viewport particle portrait */}
+      <HeroSection />
 
       {/* About Section */}
       <section ref={aboutSection.elementRef} className="py-16 px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className={`text-center mb-12 scroll-fade-up ${aboutSection.isVisible ? 'visible' : ''}`}>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">About Me</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Actively seeking opportunities as a Data Scientist Intern or Machine Learning Engineer to contribute to innovative projects.
-            </p>
-          </div>
+          <SectionHeader
+            title="About Me"
+            subtitle="Actively seeking opportunities as a Data Scientist Intern or Machine Learning Engineer to contribute to innovative projects."
+          />
 
           {/* Profile Section */}
           <div className={`mb-12 scroll-fade-up ${aboutSection.isVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
@@ -124,22 +75,22 @@ const Index = () => {
                 </div>
                 
                 <div className="md:col-span-2 space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex items-center space-x-3 p-3 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors group">
-                      <div className="p-2 rounded-full bg-primary/20 group-hover:bg-primary/40 transition-colors">
+                      <div className="shrink-0 p-2 rounded-full bg-primary/20 group-hover:bg-primary/40 transition-colors">
                         <Target className="w-4 h-4 text-primary" />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-sm font-medium">Focus</p>
                         <p className="text-xs text-muted-foreground">ML & Data Science</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center space-x-3 p-3 rounded-lg bg-secondary/10 hover:bg-secondary/20 transition-colors group">
-                      <div className="p-2 rounded-full bg-secondary/20 group-hover:bg-secondary/40 transition-colors">
+                      <div className="shrink-0 p-2 rounded-full bg-secondary/20 group-hover:bg-secondary/40 transition-colors">
                         <Zap className="w-4 h-4 text-secondary" />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-sm font-medium">Experience</p>
                         <p className="text-xs text-muted-foreground">1+ Years</p>
                       </div>
@@ -218,12 +169,10 @@ const Index = () => {
       {/* Skills Section */}
       <section ref={skillsSection.elementRef} className="py-16 px-6 bg-background/50">
         <div className="container mx-auto max-w-6xl">
-          <div className={`text-center mb-12 scroll-fade-up ${skillsSection.isVisible ? 'visible' : ''}`}>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Skills & Technologies</h2>
-            <p className="text-muted-foreground">
-              My technical expertise spans across multiple domains
-            </p>
-          </div>
+          <SectionHeader
+            title="Skills & Technologies"
+            subtitle="My technical expertise spans across multiple domains"
+          />
 
           <div ref={staggeredSkills.containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <div className={`scroll-fade-up ${staggeredSkills.visibleItems.has(0) ? 'visible' : ''}`}>
@@ -259,14 +208,16 @@ const Index = () => {
       </section>
 
       {/* Achievements Section */}
-      <section ref={achievementsSection.elementRef} className="py-16 px-6">
+      <section
+        id="achievements"
+        ref={achievementsSection.elementRef}
+        className="scroll-mt-24 py-16 px-6"
+      >
         <div className="container mx-auto max-w-6xl">
-          <div className={`text-center mb-12 scroll-fade-up ${achievementsSection.isVisible ? 'visible' : ''}`}>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Achievements</h2>
-            <p className="text-muted-foreground">
-              Recognition for excellence in competitions and academics
-            </p>
-          </div>
+          <SectionHeader
+            title="Achievements"
+            subtitle="Recognition for excellence in competitions and academics"
+          />
 
           <div ref={staggeredAchievements.containerRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {achievements.map((achievement, index) => (
@@ -286,7 +237,7 @@ const Index = () => {
           </div>
 
           <div className={`text-center mt-12 scroll-fade-up ${achievementsSection.isVisible ? 'visible' : ''}`} style={{ transitionDelay: '600ms' }}>
-            <Link to="/experience">
+            <Link to="/experience#work-experience">
               <Button size="lg" variant="outline" className="hover-scale">
                 Explore My Journey
                 <ArrowRight className="w-4 h-4 ml-2" />

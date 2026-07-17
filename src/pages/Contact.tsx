@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import DarkMap from "@/components/DarkMap";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 import { motion, AnimatePresence } from "framer-motion";
@@ -69,10 +70,13 @@ const Contact = () => {
         setFormData({ name: "", email: "", subject: "", message: "" });
         hidePopup();
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("EmailJS error:", error);
         setPopup({
           type: "error",
-          message: "❌ Failed to send message. Please try again later."
+          message: `❌ Failed to send: ${
+            error?.text || error?.message || "Unknown error"
+          }`
         });
         hidePopup();
       });
@@ -85,13 +89,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5">
+    <div className="min-h-screen">
       <Navigation />
 
-      <main className="container mx-auto px-6 pt-24 pb-12">
+      <main className="container mx-auto px-4 sm:px-6 pt-24 pb-12">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
               Get In Touch
             </h1>
@@ -161,16 +165,7 @@ const Contact = () => {
                         </p>
                       </div>
                     </div>
-                    <iframe
-                      title="Jaipur Map"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.927927927927!2d75.8120103150011!3d26.91243398314754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5b5a1a1a1a1%3A0x123456789abcdef!2sJaipur%2C%20Rajasthan%2C%20India!5e0!3m2!1sen!2sus!4v1687000000000!5m2!1sen!2sus"
-                      width="100%"
-                      height="200"
-                      style={{ border: 0, borderRadius: "0.5rem" }}
-                      allowFullScreen={false}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                    <DarkMap />
                   </div>
                 </CardContent>
               </Card>
@@ -208,7 +203,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <Card className="glass-card border-primary/20">
+            <Card id="contact-form" className="scroll-mt-24 glass-card border-primary/20">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Send className="w-5 h-5 text-primary" />
@@ -220,7 +215,7 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name *</Label>
                       <Input
@@ -265,7 +260,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Tell me about your project or inquiry..."
-                      className="min-h-[370px] max-h-[370px]"
+                      className="min-h-[140px] sm:min-h-[200px] lg:min-h-[370px] max-h-[400px]"
                       required
                     />
                   </div>

@@ -43,11 +43,12 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Left side: Animated Hamburger */}
-          <div className="flex items-center space-x-4 md:space-x-8">
+    <>
+    <nav className="fixed top-4 inset-x-0 z-50 mx-auto w-[calc(100%-2rem)] max-w-5xl rounded-full border border-border bg-background/80 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.45)]">
+      <div className="w-full px-8 py-3">
+        <div className="grid grid-cols-3 items-center">
+          {/* Left: Animated Hamburger + Logo */}
+          <div className="flex items-center space-x-4 justify-self-start">
             <button
               onClick={toggleSidebar}
               aria-label="Toggle sidebar"
@@ -86,12 +87,13 @@ const Navigation = () => {
               <img
                 src={`${import.meta.env.BASE_URL}Name.gif`}
                 alt="Name Logo"
-                className="w-25 h-14"
+                className="h-16 w-auto object-contain"
               />
             </Link>
+          </div>
 
-            {/* Desktop menu */}
-            <div className="hidden md:flex items-center space-x-6">
+          {/* Center: Desktop menu */}
+          <div className="hidden md:flex items-center space-x-6 justify-self-center">
               <Link to="/">
                 <Button
                   variant={location.pathname === "/" ? "default" : "ghost"}
@@ -125,10 +127,9 @@ const Navigation = () => {
                 </Button>
               </Link>
             </div>
-          </div>
 
-          {/* Right side: Social Icons (desktop only) */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Right: Social Icons (desktop only) */}
+          <div className="hidden md:flex items-center space-x-4 justify-self-end">
             <a
               href="https://www.instagram.com/tak.praveen04/"
               target="_blank"
@@ -168,6 +169,7 @@ const Navigation = () => {
           </div>
         </div>
       </div>
+      </nav>
 
       {/* Sidebar with Overlay */}
       <AnimatePresence>
@@ -189,7 +191,7 @@ const Navigation = () => {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 left-0 h-full w-64 bg-[rgba(0,0,0,0.6)] backdrop-blur-md shadow-lg z-50 p-6 flex flex-col justify-between"
+              className="fixed top-0 left-0 h-full w-64 bg-black/50 backdrop-blur-2xl backdrop-saturate-150 border-r border-white/20 shadow-2xl z-50 p-6 flex flex-col justify-between"
               variants={sidebarVariants}
             >
               {/* Links */}
@@ -197,9 +199,13 @@ const Navigation = () => {
                 <motion.div variants={itemVariants}>
                   <Link to="/" onClick={toggleSidebar}>
                     <Button
-                      variant={location.pathname === "/" ? "default" : "ghost"}
+                      variant="ghost"
                       size="lg"
-                      className="w-full"
+                      className={`w-full justify-start backdrop-blur-md border transition-colors ${
+                        location.pathname === "/"
+                          ? "bg-primary/30 border-primary/40 text-foreground"
+                          : "bg-white/5 border-white/10 hover:bg-white/10"
+                      }`}
                     >
                       <User className="w-5 h-5 mr-2" />
                       Home
@@ -209,13 +215,13 @@ const Navigation = () => {
                 <motion.div variants={itemVariants}>
                   <Link to="/experience" onClick={toggleSidebar}>
                     <Button
-                      variant={
-                        location.pathname === "/experience"
-                          ? "default"
-                          : "ghost"
-                      }
+                      variant="ghost"
                       size="lg"
-                      className="w-full"
+                      className={`w-full justify-start backdrop-blur-md border transition-colors ${
+                        location.pathname === "/experience"
+                          ? "bg-primary/30 border-primary/40 text-foreground"
+                          : "bg-white/5 border-white/10 hover:bg-white/10"
+                      }`}
                     >
                       <Briefcase className="w-5 h-5 mr-2" />
                       Experience
@@ -225,11 +231,13 @@ const Navigation = () => {
                 <motion.div variants={itemVariants}>
                   <Link to="/contact" onClick={toggleSidebar}>
                     <Button
-                      variant={
-                        location.pathname === "/contact" ? "default" : "ghost"
-                      }
+                      variant="ghost"
                       size="lg"
-                      className="w-full"
+                      className={`w-full justify-start backdrop-blur-md border transition-colors ${
+                        location.pathname === "/contact"
+                          ? "bg-primary/30 border-primary/40 text-foreground"
+                          : "bg-white/5 border-white/10 hover:bg-white/10"
+                      }`}
                     >
                       <MessageSquare className="w-5 h-5 mr-2" />
                       Contact
@@ -263,7 +271,7 @@ const Navigation = () => {
           </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 

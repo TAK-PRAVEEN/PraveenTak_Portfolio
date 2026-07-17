@@ -1,9 +1,8 @@
 import Navigation from "@/components/Navigation";
 import ProjectCard from "@/components/ProjectCard";
 import TimelineItem from "@/components/TimelineItem";
+import SectionHeader from "@/components/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { 
   ArrowLeft, 
@@ -15,6 +14,53 @@ import {
 
 const Experience = () => {
   const workExperience = [
+    {
+      title: "AI/ML Intern",
+      company: "Create Consciously AI",
+      period: "May 2026 - Present",
+      location: "Jaipur, Rajasthan",
+      description: [
+      "Contributed to TourIQ, an AI-powered tour revenue optimization platform processing 649K+ booking records across multiple tour operators.",
+      "Improved booking forecast accuracy from 82% to 90% and reduced prediction MAPE from 18% to 12% using DTD, occupancy, and seasonal demand features.",
+      "Enhanced dynamic pricing recommendations, increasing projected seat fill rates from 68% to 82% and identifying $50K+ revenue recovery opportunities across underperforming departures.",
+      "Worked extensively with Machine Learning pipelines, time-series forecasting, pricing optimization, and data analytics."
+      ],
+      technologies: [
+      "Python",
+      "Machine Learning",
+      "LightGBM",
+      "Time Series Forecasting",
+      "Dynamic Pricing",
+      "Pandas",
+      "NumPy",
+      "Data Analytics"
+      ],
+      type: "work" as const
+    },
+
+    {
+      title: "AI Intern",
+      company: "Infosys Springboard",
+      period: "Nov 2025 - Jan 2026",
+      location: "Remote",
+      description: [
+      "Built an AI-powered Python code reviewer using AST, Hugging Face (Qwen), and LangChain to detect 20+ code issues and enforce PEP8 standards.",
+      "Reduced linting violations from 50+ to 35 per 1,000 lines of code (~30% improvement) through automated code analysis and optimization recommendations.",
+      "Developed a Streamlit-based review platform delivering AI-generated feedback in under 2 seconds for real-time code quality assessment.",
+      "Integrated Large Language Models (LLMs), prompt engineering, and static code analysis into an end-to-end AI application."
+      ],
+      technologies: [
+      "Python",
+      "LangChain",
+      "Hugging Face",
+      "Qwen",
+      "AST",
+      "Streamlit",
+      "LLMs",
+      "Generative AI"
+      ],
+      type: "work" as const
+    },
     {
       title: "AI Intern",
       company: "Elevate Labs",
@@ -141,6 +187,27 @@ const Experience = () => {
   ];
 
   const certifications = [
+    { name: "Khelo India University Games 2025 Volunteer", provider: "Khelo India", date: "Dec 2025" },
+    { name: "Generative AI Unleashing", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Artificial Intelligence Primer Certification", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Agile Scrum in Practice", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Prompt Engineering", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Principles of Generative AI Certification", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Deep Learning for Developers", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Artificial Intelligence", provider: "Infosys Springboard", date: "Oct 2025" },
+    { name: "Time Management", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Introduction to OpenAI GPT Models", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Introduction to Deep Learning", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Generative Models for Developers", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Introduction to Artificial Intelligence", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Introduction to Natural Language Processing", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Email Writing Skills", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Computer Vision 101", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Introduction to Data Science", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Microsoft Power BI", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "OpenAI Generative Pre-trained Transformer 3 (GPT-3) for Developers", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "Introduction to Robotic Process Automation", provider: "Infosys Springboard", date: "Sep 2025" },
+    { name: "High Impact Presentations", provider: "Infosys Springboard", date: "Sep 2025" },
     { name: "ChatGPT Prompt Engineering for Developers", provider: "DeepLearning.AI & ChatGPT", date: "Aug 2025" },
     { name: "Cloud Technical Series - AI Agents edition", provider: "United Latino Students Association", date: "Aug 2025" },
     { name: "Exploring AI Use Cases and Applications", provider: "Amazon Web Services (AWS)", date: "Aug 2025" },
@@ -162,7 +229,7 @@ const Experience = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen">
       <Navigation />
       
       {/* Header */}
@@ -177,25 +244,18 @@ const Experience = () => {
             </Link>
           </div>
           
-          <div className="text-center space-y-4 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-              Experience & Projects
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              My professional journey, educational background, and project portfolio
-            </p>
-          </div>
+          <SectionHeader
+            title="Experience & Projects"
+            subtitle="My professional journey, educational background, and project portfolio"
+          />
         </div>
       </section>
 
       {/* Work Experience Timeline */}
-      <section className="py-12 px-6">
+      <section id="work-experience" className="scroll-mt-24 py-12 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center">
-            <Calendar className="w-6 h-6 mr-3 text-primary" />
-            Work Experience
-          </h2>
-          
+          <SectionHeader title="Work Experience" icon={Calendar} align="left" />
+
           <div className="space-y-0">
             {workExperience.map((exp, index) => (
               <TimelineItem key={index} {...exp} />
@@ -205,13 +265,10 @@ const Experience = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-12 px-6 bg-background/50">
+      <section className="py-12 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center">
-            <BookOpen className="w-6 h-6 mr-3 text-primary" />
-            Featured Projects
-          </h2>
-          
+          <SectionHeader title="Featured Projects" icon={BookOpen} align="left" />
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
@@ -221,13 +278,10 @@ const Experience = () => {
       </section>
 
       {/* Education Timeline */}
-      <section className="py-12 px-6" id="Education">
+      <section className="scroll-mt-24 py-12 px-6" id="Education">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center">
-            <BookOpen className="w-6 h-6 mr-3 text-secondary" />
-            Education
-          </h2>
-          
+          <SectionHeader title="Education" icon={BookOpen} align="left" />
+
           <div className="space-y-0">
             {education.map((edu, index) => (
               <TimelineItem key={index} {...edu} />
@@ -237,24 +291,29 @@ const Experience = () => {
       </section>
 
       {/* Certifications Section */}
-      <section className="py-12 px-6 bg-background/50">
+      <section id="certifications" className="scroll-mt-24 py-12 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center">
-            <Award className="w-6 h-6 mr-3 text-accent" />
-            Certifications & Courses
-          </h2>
-          
+          <SectionHeader title="Certifications & Courses" icon={Award} align="left" />
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {certifications.map((cert, index) => (
-              <Card key={index} className="glass-hover p-4 bg-gradient-card hover-lift animate-fade-in">
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-card-foreground text-sm leading-tight">
-                    {cert.name}
-                  </h4>
-                  <p className="text-xs text-primary">{cert.provider}</p>
-                  <p className="text-xs text-muted-foreground">{cert.date}</p>
+              <div
+                key={index}
+                className="card-modern group relative p-4"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 rounded-lg bg-accent/15 p-2 text-accent transition-colors group-hover:bg-accent/25">
+                    <Award className="h-4 w-4" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold leading-tight text-card-foreground">
+                      {cert.name}
+                    </h4>
+                    <p className="text-xs text-primary">{cert.provider}</p>
+                    <p className="text-xs text-muted-foreground">{cert.date}</p>
+                  </div>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
@@ -263,8 +322,8 @@ const Experience = () => {
       {/* Extra-curricular Activities */}
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-foreground mb-8">Extra-curricular Activities</h2>
-          
+          <SectionHeader title="Extra-curricular Activities" align="left" />
+
           <div className="space-y-4">
             {[
               "Poster Making Competition Winner — National Mathematics Day",
